@@ -66,15 +66,37 @@ document.getElementById("bookForm").addEventListener("submit", function(event) {
     toggleForm();
 });
 
+function createBookCard(book) {
+    const card = document.createElement("div");
+    card.classList.add("book");
+    card.innerHTML = `
+        <h2>${book.title}</h2>
+        <p>Author: ${book.author}</p>
+        <p>Pages: ${book.pages}</p>
+        <p>Read: ${book.read}</p>
+    `;
+    return card;
+}
 function addBookToLibrary() {
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
     const read = document.getElementById("read").value;
 
+    // Create a new book first
     const newBook = new book(title, author, pages, read);
+
+    // Create a card for the new book
+    const card = createBookCard(newBook);
+
+    // Append the card to the library container
+    const libraryContainer = document.querySelector(".library");
+    libraryContainer.appendChild(card);
+
+    // Push the new book to the library array
     myLibrary.push(newBook);
 
+    // Clear the form input fields
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("pages").value = "";
