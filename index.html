@@ -19,7 +19,7 @@
 
         </div>
         <div class="library">
-            
+
         </div>
 
         <form id="bookForm" style="display: none;">
@@ -33,7 +33,10 @@
             <input type="number" id="pages" required><br><br>
 
             <label for="read">Have you read the book?</label>
-            <input type="text" id="read" required><br><br>
+            <select id="read" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select><br><br>
 
             <button type="submit">Add Book</button>
         </form>
