@@ -12,13 +12,52 @@ function book(title, author, pages, read) {
 
 function toggleForm() {
     const form = document.getElementById("bookForm");
+
     if (form.style.display === "none" || form.style.display === "") {
+        // Show the form
         form.style.display = "block";
+        form.style.maxWidth = "400px"; // Set a maximum width for the form
+        form.style.backgroundColor = "#b9b3b3"; // Set background color
+        form.style.padding = "20px"; // Set padding
+        form.style.textAlign = "center"; // Center-align text
+        form.style.height = "400px";
+        form.style.position = "absolute";
+        form.style.top = "50%"; // Center vertically
+        form.style.left = "50%"; // Center horizontally
+        form.style.transform = "translate(-50%, -50%)"; // Center the form
+
+
+        // Style input fields
+        const inputs = form.querySelectorAll("input[type='text'], input[type='number']");
+        inputs.forEach(input => {
+            input.style.width = "90%"; // Reduce input field width to prevent overflow
+            input.style.padding = "10px"; // Input field padding
+            input.style.marginBottom = "10px"; // Spacing between input fields
+            input.style.border = "1px solid #ccc"; // Add a border to input fields
+            input.style.borderRadius = "5px"; // Add some border radius for rounded corners
+            input.style.fontSize = "14px"; // Set the font size for input fields
+        });
+
+        // Style labels
+        const labels = form.querySelectorAll("label");
+        labels.forEach(label => {
+            label.style.display = "block"; // Make labels display as blocks (one below the other)
+            label.style.fontWeight = "bold"; // Make labels bold for emphasis
+        });
+
+        // Style the submit button
+        const submitButton = form.querySelector("button[type='submit']");
+        submitButton.style.backgroundColor = "#3498db"; // Button background color
+        submitButton.style.color = "white"; // Button text color
+        submitButton.style.padding = "8px 16px"; // Button padding
+        submitButton.style.border = "none"; // Remove button border
+        submitButton.style.borderRadius = "5px"; // Add some border radius for rounded corners
+        submitButton.style.fontSize = "16px"; // Set the font size for the button
     } else {
+        // Hide the form
         form.style.display = "none";
     }
 }
-
 document.getElementById("showFormButton").addEventListener("click", toggleForm);
 
 document.getElementById("bookForm").addEventListener("submit", function(event) {
