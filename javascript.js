@@ -1,7 +1,5 @@
 const myLibrary = [];
 
-
-
 function book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -11,7 +9,6 @@ function book(title, author, pages, read) {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
     };
 }
-
 
 
 
@@ -31,6 +28,7 @@ function toggleForm() {
         form.style.top = "50%";
         form.style.left = "50%";
         form.style.transform = "translate(-50%, -50%)";
+        form.style.borderRadius = "10px";
 
         const inputs = form.querySelectorAll("input[type='text'], input[type='number'], select");
         inputs.forEach(input => {
@@ -76,6 +74,8 @@ function toggleForm() {
 }
 
 
+
+
 document.getElementById("showFormButton").addEventListener("click", toggleForm);
 
 document.getElementById("bookForm").addEventListener("submit", function (event) {
@@ -91,13 +91,13 @@ function createBookCard(book, index) {
     const card = document.createElement("div");
     card.classList.add("book");
     card.innerHTML = `
-        <h2>${book.title}</h2>
+        <div class="book-title">${book.title}</div>
         <p>Author: ${book.author}</p>
         <p>Pages: ${book.pages}</p>
         <p>Read: <span id="read-status-${index}">${book.read}</span></p>
         <div class="button-container">
-        <button class="toggle-read-button" data-index="${index}"></button>
-        <button class="remove-button" data-index="${index}"></button>
+            <button class="toggle-read-button" data-index="${index}"></button>
+            <button class="remove-button" data-index="${index}"></button>
         </div>
     `;
 
@@ -108,14 +108,8 @@ function createBookCard(book, index) {
 
     card.style.margin = "20px";
 
-    const removeButton = card.querySelector(".remove-button");
-    removeButton.addEventListener("click", function () {
-        removeBook(index);
-    });
-
     return card;
 }
-
 
 
 
@@ -129,7 +123,6 @@ function toggleReadStatus(index) {
 
     myLibrary[index].read = newStatus;
 }
-
 
 
 
@@ -155,6 +148,7 @@ function addBookToLibrary() {
 }
 
 
+
 function removeBook(index) {
     myLibrary.splice(index, 1);
 
@@ -164,9 +158,18 @@ function removeBook(index) {
 
     const removeButtons = document.querySelectorAll(".remove-button");
     removeButtons.forEach((button, i) => {
-        const dataIndex = parseInt(button.getAttribute("data-index"));
-        if (dataIndex > index) {
-            button.setAttribute("data-index", dataIndex - 1);
-        }
+        button.dataset.index = i;
     });
 }
+
+
+
+
+
+
+document.querySelector(".library").addEventListener("click", function (event) {
+    if (event.target.classList.contains("remove-button")) {
+        const index = event.target.dataset.index;
+        removeBook(index);
+    }
+});
