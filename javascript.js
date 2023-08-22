@@ -10,6 +10,16 @@ function book(title, author, pages, read) {
     };
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+
+    const defaultBook = new book("Example Title", "Example Author", 200, "Yes");
+
+    myLibrary.push(defaultBook);
+
+    const libraryContainer = document.querySelector(".library");
+    const card = createBookCard(defaultBook, 0);
+    libraryContainer.appendChild(card);
+});
 
 
 function toggleForm() {
