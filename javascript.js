@@ -95,8 +95,10 @@ function createBookCard(book, index) {
         <p>Author: ${book.author}</p>
         <p>Pages: ${book.pages}</p>
         <p>Read: <span id="read-status-${index}">${book.read}</span></p>
-        <button class="toggle-read-button" data-index="${index}">Toggle Read</button>
-        <button class="remove-button" data-index="${index}">Remove</button>
+        <div class="button-container">
+        <button class="toggle-read-button" data-index="${index}"></button>
+        <button class="remove-button" data-index="${index}"></button>
+        </div>
     `;
 
     const toggleReadButton = card.querySelector(".toggle-read-button");
@@ -157,10 +159,14 @@ function removeBook(index) {
     myLibrary.splice(index, 1);
 
     const libraryContainer = document.querySelector(".library");
-    libraryContainer.removeChild(libraryContainer.children[index]);
+    const removedBook = libraryContainer.children[index];
+    libraryContainer.removeChild(removedBook);
 
     const removeButtons = document.querySelectorAll(".remove-button");
     removeButtons.forEach((button, i) => {
-        button.dataset.index = i;
+        const dataIndex = parseInt(button.getAttribute("data-index"));
+        if (dataIndex > index) {
+            button.setAttribute("data-index", dataIndex - 1);
+        }
     });
 }
